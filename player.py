@@ -1,14 +1,13 @@
 class Player:
-    def __int__(self, name, Card):
+    def __init__(self, name, hand):
         self.name = name
-        self.hand = Card.cards #we use random cards through cards.file 
+        self.hand = list(hand)
 
     def draw_card(self):
-        return self.hand.pop(0)#we draw the top card from our cards
+        return self.hand.pop(0)
 
     def collect_cards(self, cards):
-        self.hand.extend(cards) #we collect all cards we won to the bottom
+        self.hand.extend(cards)
 
     def count_card(self):
         return len(self.hand)
-    
