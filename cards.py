@@ -5,7 +5,7 @@ class Card: # Represents an essentially blank playing card with a suit and rank
         self.suit = suit
         self.rank = rank
 
-    def __repr__(self):
+    def __repr__(self): #repr is just a representation of the card object
         return f"{self.rank} of {self.suit}"
 
 class Deck: # Represents a standard deck of 52 playing cards with the possible attributes.
@@ -18,7 +18,10 @@ class Deck: # Represents a standard deck of 52 playing cards with the possible a
         random.shuffle(self.cards)
 
     def deal(self):
-        return self.cards.pop() if self.cards else None #This line deals a card from the deck, or returns None if the deck is empty.
+        if self.cards:
+            return self.cards.pop()
+        else:
+            return None #This line deals a card from the deck, or returns None if the deck is empty.
 # the above line uses .pop to remove and return the last card from the deck.
     def __len__(self):
         return len(self.cards) #This line returns the number of cards remaining in the deck.
