@@ -1,16 +1,27 @@
-from cards import Card, Deck
-
 class Player:
-    def __init__(self, player_num, hand):
-        self.player_num = player_num
-        self.hand = hand if hand is not None else []  # Initialize the player's hand, defaulting to an empty list if no hand is provided.
+    def __init__(self, name, hand=None):
+        self.name = name
+        self.player_num = name
+        self.hand = list(hand) if hand is not None else []
 
     def draw(self, deck):
         card = deck.deal()
-        if card:
+        if card is not None:
             self.hand.append(card)
-            return card
-        
+        return card
+
+    def collect_cards(self, cards):
+        self.hand.extend(cards)
+
+    def count_card(self):
+        return len(self.hand)
+
+    @staticmethod
+    def draw_card(hand):
+        if hand:
+            return hand.pop(0)
+        return None
+
     def __repr__(self):
-        drawn = ", ".join(str(card) for card in self.hand) 
-        return f"Player {self.player_num} drew the {Card}"
+        drawn = ", ".join(str(card) for card in self.hand)
+        return f"Player {self.name} has {drawn}"

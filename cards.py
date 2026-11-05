@@ -1,18 +1,36 @@
-import random 
+import random
 
-class Card: # Represents an essentially blank playing card with a suit and rank
-    def __init__(self, suit, rank):
+
+class Card:
+    def __init__(self, suit, value):
         self.suit = suit
-        self.rank = rank
+        rank_values = {
+            "Jack": 11,
+            "Queen": 12,
+            "King": 13,
+            "Ace": 14,
+        }
+        rank_names = {
+            11: "Jack",
+            12: "Queen",
+            13: "King",
+            14: "Ace",
+        }
+        if isinstance(value, str) and not value.isdigit():
+            self.rank = value
+            self.value = rank_values[value]
+        else:
+            self.value = int(value)
+            self.rank = rank_names.get(self.value, str(self.value))
 
-    def __repr__(self): #repr is just a representation of the card object
+    def __repr__(self):
         return f"{self.rank} of {self.suit}"
 
-class Deck: # Represents a standard deck of 52 playing cards with the possible attributes.
+
+class Deck:
     def __init__(self):
         suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
-        ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
-        self.cards = [Card(suit, rank) for suit in suits for rank in ranks]
+        self.cards = [Card(suit, value) for suit in suits for value in range(2, 15)]
 
     def shuffle(self):
         random.shuffle(self.cards)
@@ -20,8 +38,7 @@ class Deck: # Represents a standard deck of 52 playing cards with the possible a
     def deal(self):
         if self.cards:
             return self.cards.pop()
-        else:
-            return None #This line deals a card from the deck, or returns None if the deck is empty.
-# the above line uses .pop to remove and return the last card from the deck.
+        return None
+
     def __len__(self):
-        return len(self.cards) #This line returns the number of cards remaining in the deck.
+        return len(self.cards)
